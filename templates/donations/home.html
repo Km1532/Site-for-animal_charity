@@ -1,0 +1,23 @@
+{% extends 'donations/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Тварини, які потребують допомоги</h1>
+<div class="animals-list">
+    {% if animals %}
+        {% for animal in animals %}
+        <div class="animal">
+            <h2>{{ animal.name }}</h2>
+            <p><strong>Вік:</strong> {{ animal.age }} років</p>
+            <p><strong>Потрібна допомога:</strong> {{ animal.help_needed }}</p>
+            {% if animal.image %}
+            <img src="{{ animal.image.url }}" alt="{{ animal.name }}" style="width:200px; height:auto;">
+            {% endif %}
+            <a href="{% url 'adopt' id=animal.id %}">Забрати тварину</a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Зараз немає тварин, які потребують допомоги.</p>
+    {% endif %}
+</div>
+{% endblock %}
